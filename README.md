@@ -1,4 +1,4 @@
-## Over-the-air Narrowband QPSK Modulation and Demodulation
+## Over-the-air Narrowband QPSK Modulation and Demodulation for Lab Extension
 
 This tutorial goes step-by-step through the process of transmitting and receiving a narrowband digitally modulated packet over the air in [POWDER](https://powderwireless.net/).
 
@@ -80,7 +80,13 @@ Ignore the warnings. But if the output complains about a firmware mismatch, do t
 
 We typically need to change the 1) experiment parameters `save_iq_w_tx_file.json` and 2) transmitted signal file <TX signal.iq> after instantiating the experiment. While the contents of the repository are copied, if you want to edit the parameters file on your local machine after instatiation, you need to copy the edited files to the orchestrator and each radio host.
 
-I edit the `save_iq_w_tx_file.json` and transmitted signal file on my local computer. I most recently used my python code, `Siggen_digicom_OTA_QPSK 2025.ipynb` to generate a QPSK signal and save it in an `.iq` file, and I use a text editor on my local computer to edit the `save_iq_w_tx_file.json` file. 
+I edit the `save_iq_w_tx_file.json` and transmitted signal file on my local computer with a text editor.
+
+#### Generating the Signal for the Lab
+Follow the directions in the notebook, `Siggen_digicom_OTA_QPSK 2025_FEC_Extension.ipynb` to generate a QPSK signal and save it in an `.iq` file. This notebook guides you through generating a QPSK signal that is protected by Forward Error Correction (FEC) encoding.
+    * Open the Signal Generation Notebook: [Siggen_digicom_OTA_QPSK 2025_FEC_Extension](https://colab.research.google.com/drive/1ZA_AAATRbzxT0-7vQMgqJSXKg9kONO1y?usp=sharing)
+    * Action: Follow the instructions in the notebook (look for the ✋ icon) to implement the Hamming(7,4) encoder.
+    * Output: Save the generated signal as an `.iq` file (e.g., `QPSK_signal_v2025.iq`)
 
 #### JSON File
 
@@ -152,6 +158,10 @@ You could copy these commands to a text editor, and do a search and replace to c
 
 For the demonstration, we will analyze the received signals on Google Colab in a Jupyter notebook.  (You can also certainly run the Jupyter notebook locally on your own Jupyter Notebook if you have one installed on your computer.)   
 
-Compress the collected measuremnt folder using zip in order to upload all its files to the Colab notebook.  Or if you want a previously collected dataset, there are some in this repo.
-
-You will then load [our python notebook on Google Colab](https://colab.research.google.com/drive/1gQ-6O4S6xw6z5D1UMPuN74PqNfGxXa2z?usp=sharing).  You'll follow all of the instructions on this notebook.  That includes making a copy of the notebook (the linked file is read only); uploading the zipped measurement file; and picking the `txloc` and `rxloc` and `repNum` for the measurement you will analyze.  
+**Step 2: Decode the Signal** Compress the collected measuremnt folder using zip in order to upload all its files to the Colab notebook.  You will then load our receiver notebook which includes the **Forward Error Correction (FEC)** decoder.
+    * **Open the Receiver Notebook:** [QPSK_Receiver_Design_Lab_FEC_Extension](https://colab.research.google.com/drive/1mbXckekg-0gPWvmWKhk5mMToA2hQHWfz?usp=sharing)
+    * **Action:** Follow the instructions in the notebook (look for the ✋ icon) to:
+        1.  Make a copy of the notebook (the linked file is read-only).
+        2.  Upload your zipped measurement file.
+        3.  Pick the `txloc`, `rxloc`, and `repNum` for the measurement you will analyze.
+        4.  Implement the Hamming(7,4) decoder to correct bit errors and recover the original message.

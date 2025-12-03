@@ -84,24 +84,24 @@ I edit the `save_iq_w_tx_file.json` and transmitted signal file on my local comp
 
 #### Generating the Signal for the Lab
 Follow the directions in the notebook, `Siggen_digicom_OTA_QPSK 2025_FEC_Extension.ipynb` to generate a QPSK signal and save it in an `.iq` file. This notebook guides you through generating a QPSK signal that is protected by Forward Error Correction (FEC) encoding.
-    * Open the Signal Generation Notebook: [Siggen_digicom_OTA_QPSK 2025_FEC_Extension](https://colab.research.google.com/drive/1ZA_AAATRbzxT0-7vQMgqJSXKg9kONO1y?usp=sharing)
-    * Action: Follow the instructions in the notebook (look for the ✋ icon) to implement the Hamming(7,4) encoder.
-    * Output: Save the generated signal as an `.iq` file (e.g., `QPSK_signal_v2025.iq`)
+    - Open the Signal Generation Notebook: [Siggen_digicom_OTA_QPSK 2025_FEC_Extension](https://colab.research.google.com/drive/1ZA_AAATRbzxT0-7vQMgqJSXKg9kONO1y?usp=sharing)
+    - Action: Follow the instructions in the notebook (look for the ✋ icon) to implement the Hamming(7,4) encoder.
+    - Output: Save the generated signal as an `.iq` file (e.g., `QPSK_signal_v2025.iq`)
 
 #### JSON File
 
 Some tips on editing your JSON file. These commands assume the JSON file name is `save_iq_w_tx_file.json`. The parameters you're most likely to need to change are in bold below.
         
 Parameters:
-    * **`txsamps`**: File to transmit samples from. Note that the file should contain complex samples as float32 IQIQ...
-    * `txrate` and `rxrate`: sampling rate at TX and RX.
-    * `txgain` and `rxgain`: TX and RX gain, which are device dependent. Different SDRs have different ranges of gain integers.
-    * **`txfreq` and `rxfreq`**: TX and RX carrier/center frequency. Make sure both match!
-    * **`txclients` and `rxclients`:** nodes for transmission and reception.
-    * `rxrepeat`: number of repeated sample collection runs.
-    * `sync`: whether to enable sync between TX and RX. "true" enables the use of the external (white rabbit) synchronization.
-    * `nsamps`: number of samples to be collected. If you make the transmitted signal have lots and lots of samples, you might want to increase this.
-    * `wotxrepeat`: number of repeated sample collection runs without any TX. I usually set this to zero, but it can be nice to know what the background interference and noise looked like.
+    - **`txsamps`**: File to transmit samples from. Note that the file should contain complex samples as float32 IQIQ...
+    - `txrate` and `rxrate`: sampling rate at TX and RX.
+    - `txgain` and `rxgain`: TX and RX gain, which are device dependent. Different SDRs have different ranges of gain integers.
+    - **`txfreq` and `rxfreq`**: TX and RX carrier/center frequency. Make sure both match!
+    - **`txclients` and `rxclients`:** nodes for transmission and reception.
+    - `rxrepeat`: number of repeated sample collection runs.
+    - `sync`: whether to enable sync between TX and RX. "true" enables the use of the external (white rabbit) synchronization.
+    - `nsamps`: number of samples to be collected. If you make the transmitted signal have lots and lots of samples, you might want to increase this.
+    - `wotxrepeat`: number of repeated sample collection runs without any TX. I usually set this to zero, but it can be nice to know what the background interference and noise looked like.
 
 ### Copying the files to the POWDER compute nodes
 
@@ -159,8 +159,8 @@ You could copy these commands to a text editor, and do a search and replace to c
 For the demonstration, we will analyze the received signals on Google Colab in a Jupyter notebook.  (You can also certainly run the Jupyter notebook locally on your own Jupyter Notebook if you have one installed on your computer.)   
 
 **Step 2: Decode the Signal** Compress the collected measuremnt folder using zip in order to upload all its files to the Colab notebook.  You will then load our receiver notebook which includes the **Forward Error Correction (FEC)** decoder.
-    * **Open the Receiver Notebook:** [QPSK_Receiver_Design_Lab_FEC_Extension](https://colab.research.google.com/drive/1mbXckekg-0gPWvmWKhk5mMToA2hQHWfz?usp=sharing)
-    * **Action:** Follow the instructions in the notebook (look for the ✋ icon) to:
+    - **Open the Receiver Notebook:** [QPSK_Receiver_Design_Lab_FEC_Extension](https://colab.research.google.com/drive/1mbXckekg-0gPWvmWKhk5mMToA2hQHWfz?usp=sharing)
+    - **Action:** Follow the instructions in the notebook (look for the ✋ icon) to:
         1.  Make a copy of the notebook (the linked file is read-only).
         2.  Upload your zipped measurement file.
         3.  Pick the `txloc`, `rxloc`, and `repNum` for the measurement you will analyze.
